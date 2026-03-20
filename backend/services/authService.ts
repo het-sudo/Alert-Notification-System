@@ -15,15 +15,16 @@ export const registerUser = async ({
       throw new ApiError(400, "Email already exists");
     }
 
-    const hashedpassword = await bcrypt.hash(password, 10);
+    const hashedpassword: string = await bcrypt.hash(password, 10);
 
-    const newUser = await User.create({
+    const newUser: any = await User.create({
       name,
       email,
       password: hashedpassword,
     });
 
-    const { password, ...userWithoutPassword } = newUser.toObject();
+    const { password: storedPassword, ...userWithoutPassword } =
+      newUser.toObject();
     return userWithoutPassword as Pick<IUser, "_id" | "name" | "email">;
   } catch (error) {
     throw new ApiError(

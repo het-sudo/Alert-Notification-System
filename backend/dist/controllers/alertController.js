@@ -36,7 +36,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getExternalAlerts = exports.deleteAlert = exports.markAllRead = exports.toggleRead = exports.createAlert = exports.getAlerts = void 0;
+exports.getExternalAlerts = exports.getUnreadAlerts = exports.getReadAlerts = exports.deleteAlert = exports.markAllRead = exports.toggleRead = exports.createAlert = exports.getAlerts = void 0;
 const alertService = __importStar(require("../services/alertService"));
 const asyncHandler_1 = __importDefault(require("../utils/asyncHandler"));
 const ApiError_1 = __importDefault(require("../utils/ApiError"));
@@ -75,6 +75,34 @@ exports.markAllRead = (0, asyncHandler_1.default)(async (req, res) => {
 exports.deleteAlert = (0, asyncHandler_1.default)(async (req, res) => {
     await alertService.deleteAlert(req.params.id);
     res.json({ message: "Alert deleted" });
+});
+exports.getReadAlerts = (0, asyncHandler_1.default)(async (req, res) => {
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+    const { alerts, total } = await alertService.getReadAlerts(page, limit);
+    res.json({
+        success: true,
+        data: alerts,
+        pagination: {
+            total,
+            page,
+            pages: Math.ceil(total / limit),
+        },
+    });
+});
+exports.getUnreadAlerts = (0, asyncHandler_1.default)(async (req, res) => {
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+    const { alerts, total } = await alertService.getUnreadAlerts(page, limit);
+    res.json({
+        success: true,
+        data: alerts,
+        pagination: {
+            total,
+            page,
+            pages: Math.ceil(total / limit),
+        },
+    });
 });
 exports.getExternalAlerts = (0, asyncHandler_1.default)(async (req, res) => {
     const page = parseInt(req.query.page || "1");

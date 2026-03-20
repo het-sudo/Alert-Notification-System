@@ -20,11 +20,8 @@ const registerUser = async ({ name, email, password, }) => {
             email,
             password: hashedpassword,
         });
-        return {
-            _id: newUser._id,
-            name: newUser.name,
-            email: newUser.email,
-        };
+        const { password: storedPassword, ...userWithoutPassword } = newUser.toObject();
+        return userWithoutPassword;
     }
     catch (error) {
         throw new ApiError_1.default(500, error.message || "Internal server error");

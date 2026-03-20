@@ -2,6 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 const ApiError_1 = __importDefault(require("../utils/ApiError"));
 const errorHandler = (err, req, res, next) => {
     console.error(err.stack);
@@ -11,13 +12,13 @@ const errorHandler = (err, req, res, next) => {
         statusCode = err.statusCode;
         message = err.message;
     }
-    else {
-        message = err.message || "Internal Server Error";
+    else if (err instanceof Error) {
+        message = err.message;
     }
     res.status(statusCode).json({
         success: false,
         message,
     });
 };
-module.exports = { errorHandler };
+exports.default = errorHandler;
 //# sourceMappingURL=errorMiddleware.js.map

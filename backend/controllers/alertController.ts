@@ -58,6 +58,44 @@ export const deleteAlert: RequestHandler = asyncHandler(
   },
 );
 
+export const getReadAlerts: RequestHandler = asyncHandler(
+  async (req: TypedRequest, res: Response) => {
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+
+    const { alerts, total } = await alertService.getReadAlerts(page, limit);
+
+    res.json({
+      success: true,
+      data: alerts,
+      pagination: {
+        total,
+        page,
+        pages: Math.ceil(total / limit),
+      },
+    });
+  },
+);
+
+export const getUnreadAlerts: RequestHandler = asyncHandler(
+  async (req: TypedRequest, res: Response) => {
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+
+    const { alerts, total } = await alertService.getUnreadAlerts(page, limit);
+
+    res.json({
+      success: true,
+      data: alerts,
+      pagination: {
+        total,
+        page,
+        pages: Math.ceil(total / limit),
+      },
+    });
+  },
+);
+
 export const getExternalAlerts: RequestHandler = asyncHandler(
   async (req: TypedRequest, res: Response) => {
     const page = parseInt((req.query.page as string) || "1");

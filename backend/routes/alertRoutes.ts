@@ -12,6 +12,8 @@ router.post("/", controller.createAlert);
 router.patch("/:id/read", controller.toggleRead);
 router.patch("/read-all", controller.markAllRead);
 router.delete("/:id", controller.deleteAlert);
+router.get("/read", controller.getReadAlerts);
+router.get("/unread", controller.getUnreadAlerts);
 router.get("/external", controller.getExternalAlerts);
 
 export = router;

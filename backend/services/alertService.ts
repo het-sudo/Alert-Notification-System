@@ -41,6 +41,40 @@ export const deleteAlert = async (id: string): Promise<boolean> => {
   return true;
 };
 
+export const getReadAlerts = async (
+  page: number = 1,
+  limit: number = 10,
+): Promise<{ alerts: IAlert[]; total: number }> => {
+  const skip = (page - 1) * limit;
+
+  const [alerts, total] = await Promise.all([
+    Alert.find({ isRead: true })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit),
+    Alert.countDocuments({ isRead: true }),
+  ]);
+
+  return { alerts: alerts as IAlert[], total };
+};
+
+export const getUnreadAlerts = async (
+  page: number = 1,
+  limit: number = 10,
+): Promise<{ alerts: IAlert[]; total: number }> => {
+  const skip = (page - 1) * limit;
+
+  const [alerts, total] = await Promise.all([
+    Alert.find({ isRead: false })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit),
+    Alert.countDocuments({ isRead: false }),
+  ]);
+
+  return { alerts: alerts as IAlert[], total };
+};
+
 export const getExternalAlerts = async (
   page: number = 1,
   limit: number = 10,

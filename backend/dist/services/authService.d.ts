@@ -1,5 +1,5 @@
 import { RegisterRequest, LoginRequest, IUser } from "../types";
-export declare const registerUser: ({ name, email, password, }: RegisterRequest) => Promise<Omit<IUser, "password">>;
+export declare const registerUser: ({ name, email, password, }: RegisterRequest) => Promise<Pick<IUser, "_id" | "name" | "email">>;
 export declare const logoutUser: (token: string) => Promise<{
     message: string;
 }>;

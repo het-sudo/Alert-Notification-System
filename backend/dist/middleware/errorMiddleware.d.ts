@@ -1,6 +1,4 @@
-import { RequestHandler } from "express";
-declare const _default: {
-    errorHandler: RequestHandler<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>;
-};
-export = _default;
+import { ErrorRequestHandler } from "express";
+declare const errorHandler: ErrorRequestHandler;
+export default errorHandler;
 //# sourceMappingURL=errorMiddleware.d.ts.map
