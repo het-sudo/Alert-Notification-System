@@ -10,7 +10,9 @@ const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 const errorMiddleware_1 = __importDefault(require("./middleware/errorMiddleware"));
 const app = (0, express_1.default)();
 const corsOptions = {
-    origin: process.env.cors || "http://localhost:3000",
+    origin: process.env.cors,
+    // ? process.env.cors.split(",")
+    // : ["http://localhost:3000", "http://localhost:5173"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
 };

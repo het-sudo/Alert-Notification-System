@@ -38,11 +38,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 const express_1 = __importDefault(require("express"));
 const controller = __importStar(require("../controllers/authController"));
 const auth_1 = __importDefault(require("../middleware/auth"));
-const alertController_1 = require("../controllers/alertController");
 const router = express_1.default.Router();
 router.post("/register", controller.register);
 router.post("/login", controller.login);
 router.post("/logout", auth_1.default, controller.logout);
-router.get("/read", auth_1.default, alertController_1.getReadAlerts);
 module.exports = router;
 //# sourceMappingURL=authRoutes.js.map

@@ -8,8 +8,10 @@ import errorHandler from "./middleware/errorMiddleware";
 const app = express();
 
 const corsOptions: CorsOptions = {
-  origin: process.env.cors || "http://localhost:3000",
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  origin: process.env.cors,
+  // ? process.env.cors.split(",")
+  // : ["http://localhost:3000", "http://localhost:5173"],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   credentials: true,
 } as const;
 

@@ -1,4 +1,5 @@
 import { Document, Types } from "mongoose";
+import { Request } from "express";
 
 export interface IUser extends Document {
   _id: Types.ObjectId;
@@ -35,7 +36,6 @@ export interface CreateAlertRequest {
   type?: "info" | "warning" | "error";
 }
 
-import { Request } from "express";
 export interface TypedRequest<T = {}> extends Request {
   body: T;
   user?: { userId: string; email: string };
